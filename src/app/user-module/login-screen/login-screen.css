@@ -85,3 +85,19 @@ img { /* Tags, sem nenhum prefixo */
     transform: translateY(-12px) translateX(-90px);
 
 }
+
+.success-status-message {
+
+    margin-top: 12px;
+    color: green;
+    font-size: 12px;
+
+}
+
+.error-status-message {
+
+    margin-top: 12px;
+    color: red;
+    font-size: 12px;
+
+}

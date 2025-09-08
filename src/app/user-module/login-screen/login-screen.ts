@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -12,9 +12,11 @@ export class LoginScreen {
   loginForm: FormGroup;
 
   emailErrorMessage: string;
-  statusMessage: string;
+  passwordErrorMessage: string;
+  successStatusMessage: string;
+  errorStatusMessage: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     // Quando a tela iniciar.
 
     // Inicia o formulário.
@@ -27,11 +29,18 @@ export class LoginScreen {
 
     // Inicia com uma string vazia
     this.emailErrorMessage = "";
-    this.statusMessage = "";
+    this.passwordErrorMessage = "";
+    this.successStatusMessage = "";
+    this.errorStatusMessage = "";
 
   }
 
   async onLoginClick() {
+
+    this.emailErrorMessage = "";
+    this.passwordErrorMessage = "";
+    this.successStatusMessage = "";
+    this.errorStatusMessage = "";
 
     console.log("Email", this.loginForm.value.email);
     console.log("Password", this.loginForm.value.password);
@@ -46,7 +55,7 @@ export class LoginScreen {
 
     if (this.loginForm.value.password == "") {
 
-      alert("Preencha a senha.");
+      this.passwordErrorMessage = "O campo de senha é obrigatório.";
       return;
 
     }
@@ -68,13 +77,15 @@ export class LoginScreen {
 
     if (response.status >= 200 && response.status <= 299) {
 
-      this.statusMessage = "Login realizado com sucesso!";
+      this.successStatusMessage = "Login realizado com sucesso!";
 
     } else {
 
-      alert("Credenciais incorretas!");
+      this.errorStatusMessage = "Credenciais incorretas.";
 
     }
+
+    this.cdr.detectChanges();
 
   }
 
