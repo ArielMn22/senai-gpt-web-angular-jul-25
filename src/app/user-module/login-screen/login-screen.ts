@@ -11,6 +11,9 @@ export class LoginScreen {
 
   loginForm: FormGroup;
 
+  emailErrorMessage: string;
+  statusMessage: string;
+
   constructor(private fb: FormBuilder) {
     // Quando a tela iniciar.
 
@@ -22,6 +25,10 @@ export class LoginScreen {
       password: ["", [Validators.required]]
     });
 
+    // Inicia com uma string vazia
+    this.emailErrorMessage = "";
+    this.statusMessage = "";
+
   }
 
   async onLoginClick() {
@@ -31,7 +38,8 @@ export class LoginScreen {
 
     if (this.loginForm.value.email == "") {
 
-      alert("Preencha o e-mail.");
+      // alert("Preencha o e-mail.");
+      this.emailErrorMessage = "O campo de e-mail é obrigatório.";
       return;
 
     }
@@ -60,7 +68,7 @@ export class LoginScreen {
 
     if (response.status >= 200 && response.status <= 299) {
 
-      alert("Login realizado com sucesso!");
+      this.statusMessage = "Login realizado com sucesso!";
 
     } else {
 
