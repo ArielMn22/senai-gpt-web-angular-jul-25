@@ -1,13 +1,17 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login-screen',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FaIconComponent],
   templateUrl: './login-screen.html',
   styleUrl: './login-screen.css'
 })
 export class LoginScreen {
+
+  faCoffe = faCoffee;
 
   loginForm: FormGroup;
 
