@@ -1,17 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login-screen',
-  imports: [ReactiveFormsModule, FaIconComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './login-screen.html',
   styleUrl: './login-screen.css'
 })
 export class LoginScreen {
-
-  faCoffe = faCoffee;
 
   loginForm: FormGroup;
 
@@ -20,7 +17,7 @@ export class LoginScreen {
   successStatusMessage: string;
   errorStatusMessage: string;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
     // Quando a tela iniciar.
 
     // Inicia o formulário.
@@ -83,13 +80,25 @@ export class LoginScreen {
 
       this.successStatusMessage = "Login realizado com sucesso!";
 
+      let json = await response.json();
+
+      console.log("JSON", json);
+
+      let meuToken = json.accessToken;
+      let userId = json.user.id;
+
+      localStorage.setItem("meuToken", meuToken);
+      localStorage.setItem("meuId", userId);
+
+      window.location.href = "chat";
+
     } else {
 
       this.errorStatusMessage = "Credenciais incorretas.";
 
     }
 
-    this.cdr.detectChanges();
+    this.cd.detectChanges(); // Forçar uma atualização da tela.
 
   }
 

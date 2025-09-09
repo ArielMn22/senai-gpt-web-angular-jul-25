@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginScreen } from './user-module/login-screen/login-screen';
+import { ChatScreen } from './chat-screen/chat-screen';
 
 export const routes: Routes = [
     {
@@ -9,5 +10,9 @@ export const routes: Routes = [
     {
         path: "",
         loadComponent: () => LoginScreen
+    },
+    {
+        path: "chat",
+        loadComponent: () => ChatScreen
     }
 ];
