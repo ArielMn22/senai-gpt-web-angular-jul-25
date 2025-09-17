@@ -9,13 +9,12 @@
 
             @for (chat of chats; track $index) {
 
-                <button class="btn-chat">
+                <button class="btn-chat" (click)="onChatClick(chat)">
                     <i class="fa-regular fa-message"></i>
                     {{ chat.chatTitle }}
                 </button>
 
             }
-
 
         </div>
 
