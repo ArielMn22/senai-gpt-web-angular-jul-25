@@ -5,7 +5,7 @@
 
         <div class="top">
 
-            <button class="btn-new-chat">+ New chat</button>
+            <button class="btn-new-chat" (click)="novoChat()">+ New chat</button>
 
             @for (chat of chats; track $index) {
 
@@ -20,7 +20,7 @@
 
         <div class="bottom">
 
-            <button class="btn-chat">
+            <!-- <button class="btn-chat">
                 <i class="fa-solid fa-trash-can"></i>
                 Clear conversations
             </button>
@@ -38,11 +38,20 @@
             <button class="btn-chat">
                 <i class="fa-solid fa-trash-can"></i>
                 Updates & FAQ
-            </button>
+            </button> -->
 
-            <button class="btn-chat">
+            @if (chatSelecionado != null) {
+
+                <button class="btn-chat" (click)="deletarChatSelecionado()">
+                    <i class="fa-solid fa-trash-can"></i>
+                    Deletar chat {{ chatSelecionado.chatTitle }}
+                </button>
+
+            }
+            
+            <button class="btn-chat" (click)="deslogar()">
                 <i class="fa-solid fa-trash-can"></i>
-                Log out
+                Deslogar
             </button>
             
         </div>
@@ -52,62 +61,91 @@
     <!-- Conteúdo principal do site -->
     <main class="central-panel">
 
-        <div class="logo"></div>
+        @if (chatSelecionado == null) {
 
-        <div class="dicas-container">
+            <div class="logo"></div>
+    
+            <div class="dicas-container">
+    
+                <div class="dicas-item">
+    
+                    <h2>
+                        <i class="fa-regular fa-comments"></i>
+                        Examples
+                    </h2>
+    
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+    
+                </div>
+    
+                <div class="dicas-item">
+    
+                    <h2>
+                        <i class="fa-regular fa-comments"></i>
+                        Capabilities
+                    </h2>
+    
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+    
+                </div>
+    
+                <div class="dicas-item">
+    
+                    <h2>
+                        <i class="fa-regular fa-comments"></i>
+                        Limitations
+                    </h2>
+    
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+                    <p>"Explain quantum computing insimple terms"</p>
+    
+                </div>
+    
+            </div>
 
-            <div class="dicas-item">
+        }
 
-                <h2>
-                    <i class="fa-regular fa-comments"></i>
-                    Examples
-                </h2>
+        @if (chatSelecionado != null) {
+            <!-- Só vai ser executado quando o usuário tiver clicado em um chat -->
 
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
+            <div class="chat-container">
+
+                <div class="chat-header">
+
+                    <h2>{{ chatSelecionado.chatTitle }}</h2>
+                
+                </div>
+
+                <div class="chat-messages">
+
+                    @for (msg of mensagens; track $index) {
+
+                        <p class="message-item" [class.chatbot]="msg.userId == 'chatbot'">{{ msg.text }}</p>
+
+                    }
+
+                </div>
 
             </div>
 
-            <div class="dicas-item">
+            <div class="input-container">
 
-                <h2>
-                    <i class="fa-regular fa-comments"></i>
-                    Capabilities
-                </h2>
+                <i class="fa-solid fa-microphone"></i>
 
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
+                <i class="fa-solid fa-image"></i>
 
-            </div>
+                <input [formControl]="mensagemUsuario" type="text" placeholder="Type message">
 
-            <div class="dicas-item">
-
-                <h2>
-                    <i class="fa-regular fa-comments"></i>
-                    Limitations
-                </h2>
-
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
-                <p>"Explain quantum computing insimple terms"</p>
+                <i class="send-button fa-solid fa-paper-plane" (click)="enviarMensagem()"></i>
 
             </div>
 
-        </div>
-
-        <div class="input-container">
-
-            <i class="fa-solid fa-microphone"></i>
-
-            <i class="fa-solid fa-image"></i>
-
-            <input type="text" placeholder="Type message">
-
-            <i class="send-button fa-solid fa-paper-plane"></i>
-
-        </div>
+        }
 
     </main>
 

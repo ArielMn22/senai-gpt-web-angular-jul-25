@@ -15,6 +15,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (err.status == 401) {
         // Token expirou
         localStorage.clear(); // Limpa todos os dados do localstorage.
+        window.location.href = "/login"; // Redireciona para o login.
+
         router.navigate(['/login']); // Redireciona para o login.
       }
 
