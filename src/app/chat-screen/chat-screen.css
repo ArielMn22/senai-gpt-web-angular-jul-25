@@ -206,3 +206,22 @@
   background: #000;
 
 }
+
+::ng-deep body.dark-mode .left-panel {
+
+    background-color: black !important;
+
+}
+
+::ng-deep body.dark-mode .btn-new-chat {
+
+    background-color: white !important;
+    color: black;
+
+}
+
+::ng-deep body.dark-mode .logo {
+
+    background-image: url("/imgs/Chat-darkmode.png") !important;
+
+}

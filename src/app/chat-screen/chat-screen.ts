@@ -33,6 +33,7 @@ export class ChatScreen {
   chatSelecionado: IChat;
   mensagens: IMessage[];
   mensagemUsuario = new FormControl(""); // Declaramos e atribuimos valor.
+  darkMode: boolean = false;
 
   constructor (private http: HttpClient, private cd: ChangeDetectorRef) { // Constrói a classe
     // Inicialização de variáveis...
@@ -45,6 +46,15 @@ export class ChatScreen {
     // Buscar dados da API.
 
     this.getChats();
+
+    let darkModeLocalStorage = localStorage.getItem("darkMode");
+
+    if (darkModeLocalStorage == "true") {
+
+      this.darkMode = true;
+      document.body.classList.toggle("dark-mode", this.darkMode);
+
+    }
 
   }
 
@@ -248,6 +258,16 @@ export class ChatScreen {
 
     // Força a atualização da tela
     this.cd.detectChanges();
+
+  }
+
+  ligarDesligarDarkMode() {
+
+    this.darkMode = !this.darkMode; // O inverso do this.darkMode.
+
+    document.body.classList.toggle("dark-mode", this.darkMode);
+
+    localStorage.setItem("darkMode", this.darkMode.toString());
 
   }
 

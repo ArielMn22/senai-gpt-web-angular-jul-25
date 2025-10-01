@@ -49,6 +49,11 @@
 
             }
             
+            <button class="btn-chat" (click)="ligarDesligarDarkMode()">
+                <i class="fa-solid fa-moon"></i>
+                Modo escuro
+            </button>
+
             <button class="btn-chat" (click)="deslogar()">
                 <i class="fa-solid fa-trash-can"></i>
                 Deslogar
@@ -63,8 +68,9 @@
 
         @if (chatSelecionado == null) {
 
+            <!-- CLASSE -->
             <div class="logo"></div>
-    
+
             <div class="dicas-container">
     
                 <div class="dicas-item">
